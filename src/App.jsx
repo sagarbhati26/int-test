@@ -55,19 +55,26 @@ function App() {
         </select>
       </div>
 
-      <div className="dropdown">
-        <label>Pincode:</label>
-        <select
-          value={selectedPincodeId}
+      <div className="radio-group">
+  <label>Pincode:</label>
+  {filteredPincodes.length === 0 ? (
+    <p>Please select a city first.</p>
+  ) : (
+    filteredPincodes.map((pin) => (
+      <div key={pin.id} className="radio-option">
+        <input
+          type="radio"
+          id={pin.id}
+          name="pincode"
+          value={pin.id}
+          checked={selectedPincodeId === pin.id}
           onChange={(e) => setSelectedPincodeId(e.target.value)}
-          disabled={!selectedCityId}
-        >
-          <option value="">-- Select Pincode --</option>
-          {filteredPincodes.map((pin) => (
-            <option key={pin.id} value={pin.id}>{pin.code}</option>
-          ))}
-        </select>
+        />
+        <label htmlFor={pin.id}>{pin.code}</label>
       </div>
+    ))
+  )}
+</div>
 
     
       <hr />
